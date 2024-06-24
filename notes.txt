@@ -7,3 +7,26 @@ NEXT_PUBLIC_CLERK_SIGN_UP_URL=/sign-up
 
 NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL=/dashboard
 NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL=/dashboard
+
+whenever you create a form
+
+use 1. zod
+2. use constant.ts with formschema
+3. use zodResolver, useForm
+const form = useForm<z.infer<typeof formSchema>>({
+        resolver: zodResolver(formSchema),
+        defaultValues: {
+            prompt: ""
+        }
+    });
+
+focus-visible:ring-0
+focus-visible:ring-transparent
+
+bg-[#111827]
+md:inset-y-0 -> top0, bottom0
+
+grid-cols-12 --> parent
+col-span-12 md:col-span-10 -->child 1
+col-span-12 md:col-span-2 -->child 2 
+This collapses when screen is smaller than medium
