@@ -1,12 +1,13 @@
 "use client";
 import {Heading} from "@/components/heading";
 import * as z from "zod";
-import { MessageSquare } from "lucide-react";
+import { Divide, MessageSquare } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
 import {useRouter} from "next/navigation";
 import { useState } from "react";
+import ReactMarkdown from "react-markdown";
 
 import { formSchema } from "./constant";
 import { Form, FormField, FormItem, FormControl} from "@/components/ui/form";
@@ -34,6 +35,8 @@ const CodePage = () => {
         }
     });
 
+    
+
     const isLoading = form.formState.isSubmitting;
 
     const onSubmit = async(values: z.infer<typeof formSchema>) => {
@@ -48,13 +51,11 @@ const CodePage = () => {
 
 
             const newMessages = [...messages, userMessage];
-            console.log("This is not printing");
-            console.log("New Messages", newMessages);
+        
 
-            const response = await axios.post("/api/conversation", {
+            const response = await axios.post("/api/code", {
                 messages: newMessages
             });
-            console.log("This is not printing2", newMessages);
             setMessages((current) => [...current, userMessage, response.data]);
 
 
@@ -70,11 +71,11 @@ const CodePage = () => {
     return ( 
         <div>
             <Heading 
-             title="Conversation"
-             description="AI which can do anything"
+             title="Code Generation"
+             description="AI which generated the code"
              icon={MessageSquare}
-             iconColor="text-violet-500"
-             bgColor="bg-violet-500/10"
+             iconColor="text-orange-500"
+             bgColor="bg-orange-500/10"
             /> 
             <div className="px-4 lg:px-8">
                 <div>
@@ -89,7 +90,7 @@ const CodePage = () => {
                                     <FormControl className="m-0 p-0">
                                       <Input className="border-0 outline-none focus-visible:ring-0 focus-visible:ring-transparent"
                                        disabled={isLoading}
-                                       placeholder="How can I use Nextjs?"
+                                       placeholder="How to connect openai api with Next.js?"
                                        {...field}
                                       />
                                      </FormControl>
@@ -120,9 +121,27 @@ const CodePage = () => {
                 <div className="flex flex-col gap-y-4">
                     {messages.map((message, index) => (
                     <div key={index} className={cn("p-8 w-full rounded-lg flex items-start gap-x-8", message.role === "user"? "bg-white border-black/10": "bg-muted")}>
+
                         {/* <strong>{message.role === "user" ? <UserAvatar/> : <BotAvatar/>}:</strong> {message.content} */}
-                        {message.role === "user" ? <UserAvatar/> : <BotAvatar/>} {message.content}
-                        {message.content}
+                        {message.role === "user" ? <UserAvatar/> : <BotAvatar/>} 
+                        <ReactMarkdown 
+                            className="text-sm overflow-hidden leading-7"
+                            components={{
+                                pre: ({ node, ...props }) => (
+                                    <div className="overflow-auto w-full my-2 bg-black/10 p-2 rounded-lg border-blac-10">
+                                       <pre {...props} />
+                                    </div>
+                                ),// This is code block which contains the code
+                                code: ({node,...props}) => (
+                                    <code className="bg-black/10 rounded-lg p-1" {...props} />
+                                )// this is small code word in the explanation which will have bg-black/10
+                            }}
+                        >
+                            {message.content || ""}
+                        </ReactMarkdown>
+
+
+
                     </div>
                     ))}
           </div>
