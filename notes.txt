@@ -34,3 +34,7 @@ This collapses when screen is smaller than medium
 
 use api folder make route.ts for doing REST api
 install axios and use it to interact with route.ts
+
+tinywow.com
+123apps.com
+https://www.commontools.org/

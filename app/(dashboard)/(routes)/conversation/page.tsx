@@ -12,15 +12,18 @@ import { formSchema } from "./constant";
 import { Form, FormField, FormItem, FormControl} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import OpenAI from 'openai';
+import {Empty} from "@/components/empty";
+import {Loader} from "@/components/loader";
 
-
+type Message = {
+    role: "user" | "assistant";
+    content: string;
+  };
 
 
 const ConversationPage = () => {
     const router = useRouter();
-    const [messages, setMessages] = useState<OpenAI.Chat.ChatCompletionCreateParams[]>([])
-
+    const [messages, setMessages] = useState<Message[]>([]);
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -35,22 +38,22 @@ const ConversationPage = () => {
 
         try{
             
-            const userMessage = {
+            const userMessage:Message = {
                 role: "user",
                 content: values.prompt
               };
 
 
             const newMessages = [...messages, userMessage];
+            console.log("This is not printing");
+            console.log("New Messages", newMessages);
 
             const response = await axios.post("/api/conversation", {
                 messages: newMessages
             });
-
-            console.log("[RESPONSE]", response.data);
+            console.log("This is not printing2", newMessages);
             setMessages((current) => [...current, userMessage, response.data]);
 
-            console.log("[MESSAGES]", messages);
 
             form.reset();
 
@@ -102,14 +105,19 @@ const ConversationPage = () => {
                     </Form>
                 </div>
                 <div className="space-y-4 mt-4">
-                    <div className="flex flex-col-reverse gap-y-4">
-                        {messages.map((message, index) => (
-                            <div key={index}>
-                                {message}
-                            </div>
-                        ))}
-
+                    {true && (
+                        <Loader />
+                    )}
+                    {messages.length === 0 && !isLoading && (
+                        <Empty label="No Conversation Started"/>
+                        )}
+                <div className="flex flex-col gap-y-4">
+                    {messages.map((message, index) => (
+                    <div key={index} className={`message ${message.role}`}>
+                        <strong>{message.role === "user" ? "You" : "AI"}:</strong> {message.content}
                     </div>
+                    ))}
+          </div>
                 </div>
 
             </div>
