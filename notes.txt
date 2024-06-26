@@ -30,3 +30,7 @@ grid-cols-12 --> parent
 col-span-12 md:col-span-10 -->child 1
 col-span-12 md:col-span-2 -->child 2 
 This collapses when screen is smaller than medium
+
+
+use api folder make route.ts for doing REST api
+install axios and use it to interact with route.ts

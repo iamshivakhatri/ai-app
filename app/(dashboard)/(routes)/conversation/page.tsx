@@ -4,14 +4,23 @@ import * as z from "zod";
 import { MessageSquare } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import axios from "axios";
+import {useRouter} from "next/navigation";
+import { useState } from "react";
 
 import { formSchema } from "./constant";
 import { Form, FormField, FormItem, FormControl} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import OpenAI from 'openai';
+
+
 
 
 const ConversationPage = () => {
+    const router = useRouter();
+    const [messages, setMessages] = useState<OpenAI.Chat.ChatCompletionCreateParams[]>([])
+
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -23,6 +32,34 @@ const ConversationPage = () => {
 
     const onSubmit = async(values: z.infer<typeof formSchema>) => {
         console.log(values);
+
+        try{
+            
+            const userMessage = {
+                role: "user",
+                content: values.prompt
+              };
+
+
+            const newMessages = [...messages, userMessage];
+
+            const response = await axios.post("/api/conversation", {
+                messages: newMessages
+            });
+
+            console.log("[RESPONSE]", response.data);
+            setMessages((current) => [...current, userMessage, response.data]);
+
+            console.log("[MESSAGES]", messages);
+
+            form.reset();
+
+        }catch(e: any){
+            // TODO: Open Pro Modal
+            console.log("[onSubmit]",e);
+        }finally{
+            router.refresh();
+        }
     }
     return ( 
         <div>
@@ -65,7 +102,14 @@ const ConversationPage = () => {
                     </Form>
                 </div>
                 <div className="space-y-4 mt-4">
-                    Messages Content
+                    <div className="flex flex-col-reverse gap-y-4">
+                        {messages.map((message, index) => (
+                            <div key={index}>
+                                {message}
+                            </div>
+                        ))}
+
+                    </div>
                 </div>
 
             </div>
