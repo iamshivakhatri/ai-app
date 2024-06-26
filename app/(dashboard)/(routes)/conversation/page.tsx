@@ -14,6 +14,9 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import {Empty} from "@/components/empty";
 import {Loader} from "@/components/loader";
+import { BotAvatar } from "@/components/bot-avatar";
+import { UserAvatar } from "@/components/user-avatar";
+import {cn} from "@/lib/utils";
 
 type Message = {
     role: "user" | "assistant";
@@ -105,16 +108,21 @@ const ConversationPage = () => {
                     </Form>
                 </div>
                 <div className="space-y-4 mt-4">
-                    {true && (
-                        <Loader />
+                    {isLoading && (
+                        <div className="p-8 bg-muted rounded-lg w-full ">
+                            <Loader />
+                        </div>
+                        
                     )}
                     {messages.length === 0 && !isLoading && (
                         <Empty label="No Conversation Started"/>
                         )}
                 <div className="flex flex-col gap-y-4">
                     {messages.map((message, index) => (
-                    <div key={index} className={`message ${message.role}`}>
-                        <strong>{message.role === "user" ? "You" : "AI"}:</strong> {message.content}
+                    <div key={index} className={cn("p-8 w-full rounded-lg flex items-start gap-x-8", message.role === "user"? "bg-white border-black/10": "bg-muted")}>
+                        {/* <strong>{message.role === "user" ? <UserAvatar/> : <BotAvatar/>}:</strong> {message.content} */}
+                        {message.role === "user" ? <UserAvatar/> : <BotAvatar/>} {message.content}
+                        {message.content}
                     </div>
                     ))}
           </div>
