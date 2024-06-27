@@ -24,7 +24,7 @@ type Message = {
   };
 
 
-const CodePage = () => {
+const ConversationPage = () => {
     const router = useRouter();
     const [messages, setMessages] = useState<Message[]>([]);
     const form = useForm<z.infer<typeof formSchema>>({
@@ -48,8 +48,7 @@ const CodePage = () => {
 
 
             const newMessages = [...messages, userMessage];
-            console.log("This is not printing");
-            console.log("New Messages", newMessages);
+
 
             const response = await axios.post("/api/conversation", {
                 messages: newMessages
@@ -133,4 +132,4 @@ const CodePage = () => {
      );
 }
  
-export default CodePage;
+export default ConversationPage;

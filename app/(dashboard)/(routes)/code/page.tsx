@@ -1,7 +1,7 @@
 "use client";
 import {Heading} from "@/components/heading";
 import * as z from "zod";
-import { Divide, MessageSquare } from "lucide-react";
+import { Divide, Code} from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
@@ -73,7 +73,7 @@ const CodePage = () => {
             <Heading 
              title="Code Generation"
              description="AI which generated the code"
-             icon={MessageSquare}
+             icon={Code}
              iconColor="text-orange-500"
              bgColor="bg-orange-500/10"
             /> 
