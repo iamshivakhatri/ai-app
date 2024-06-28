@@ -1,7 +1,7 @@
 "use client";
 import {Heading} from "@/components/heading";
 import * as z from "zod";
-import { MessageSquare, Music } from "lucide-react";
+import { Music } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
@@ -24,7 +24,7 @@ type Message = {
 
 const MusicPage = () => {
     const router = useRouter();
-    const [music, setMusic] = useState<string>("");
+    const [music, setMusic] = useState<string>();
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -103,9 +103,11 @@ const MusicPage = () => {
                     {!music && !isLoading && (
                         <Empty label="Music not found yet..."/>
                         )}
-                        <div >
-                           Music will be generated here.
-                        </div>
+                        {music && (
+                            <audio controls className="w-full mt-8">
+                                <source src={music}/>
+                            </audio>
+                        )}
                 </div>
 
             </div>
