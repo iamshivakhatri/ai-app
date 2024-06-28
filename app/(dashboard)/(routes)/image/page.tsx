@@ -34,14 +34,13 @@ const ImagePage = () => {
         defaultValues: {
             prompt: "",
             amount: "1",
-            resolution: "256x256"
+            resolution: "1024x1024"
         }
     });
 
     const isLoading = form.formState.isSubmitting;
 
     const onSubmit = async(values: z.infer<typeof formSchema>) => {
-        console.log("I am printingvalues", values);
 
         try{
             setImages([]);

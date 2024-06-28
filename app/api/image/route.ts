@@ -48,7 +48,7 @@ export async function POST(req:Request){
         model: "dall-e-3",
         prompt: prompt,
         n: parseInt(amount, 10),
-        size: "1024x1024",
+        size: resolution,
       });
       
 
