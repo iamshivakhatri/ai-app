@@ -61,5 +61,8 @@ To see the table: npx prisma studio
 
 Get the data in server components and pass it as the props. use router.refresh to refresh the server components.
 
+# To create a modal
 Install zustand to create a model
+install dialog npx shadcn-ui@latest add dialog
+custom hook was created in use-pro-modal
 
