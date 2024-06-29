@@ -59,4 +59,7 @@ create a new file prismadb.ts in Lib
 
 To see the table: npx prisma studio
 
+Get the data in server components and pass it as the props. use router.refresh to refresh the server components.
+
+Install zustand to create a model
 

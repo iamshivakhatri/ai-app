@@ -8,8 +8,11 @@ import { Layout, LayoutDashboard, MessageSquare, ImageIcon, VideoIcon, Music, Co
 
 import {cn} from  '@/lib/utils';
 import { usePathname } from "next/navigation";
-import path from "path";
+import {FreeCounter} from "./free-counter";
 
+interface SidebarProps {
+    apiLimitCount: number;
+}
 const montserrat = Montserrat(
     {
         weight: "600",
@@ -61,7 +64,7 @@ const routes = [
     }
 ]
 
-const Sidebar = () => {
+const Sidebar = ({apiLimitCount = 0}: SidebarProps) => {
     const pathname = usePathname();
     return ( 
         <div className="space-y-4 py-4 flex flex-col h-full bg-[#111827] text-white">
@@ -97,6 +100,9 @@ const Sidebar = () => {
                 </div>
 
             </div>
+            <FreeCounter
+                apiLimitCount={apiLimitCount}
+            />
         </div>
      );
 }

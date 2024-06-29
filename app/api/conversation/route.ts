@@ -2,7 +2,6 @@
 import OpenAI from 'openai';
 import {NextResponse} from "next/server";
 import { auth } from '@clerk/nextjs/server';
-import { json } from 'stream/consumers';
 
 import { increaseApiLimit, checkApiLimit } from '@/lib/api-limit';
 
