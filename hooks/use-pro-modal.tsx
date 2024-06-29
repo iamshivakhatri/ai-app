@@ -7,7 +7,7 @@ interface userProModalState {
 }
 
 export const useProModal = create<userProModalState>((set)=>({
-    isOpen: true,
+    isOpen:false,
     onOpen: () => set({isOpen: true}),
     onClose: () => set({isOpen: false}),
 }));
