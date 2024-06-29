@@ -18,14 +18,18 @@ import {Loader} from "@/components/loader";
 import { BotAvatar } from "@/components/bot-avatar";
 import { UserAvatar } from "@/components/user-avatar";
 import {cn} from "@/lib/utils";
+import { useProModal } from "@/hooks/use-pro-modal";
+
 
 type Message = {
     role: "user" | "assistant";
     content: string;
-  };
+};
 
 
 const CodePage = () => {
+    const proModal = useProModal();
+
     const router = useRouter();
     const [messages, setMessages] = useState<Message[]>([]);
     const form = useForm<z.infer<typeof formSchema>>({
@@ -62,7 +66,9 @@ const CodePage = () => {
             form.reset();
 
         }catch(e: any){
-            // TODO: Open Pro Modal
+            if(e?.response?.status === 403){
+                proModal.onOpen();
+            }
             console.log("[onSubmit]",e);
         }finally{
             router.refresh();

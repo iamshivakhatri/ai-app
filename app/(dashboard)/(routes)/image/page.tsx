@@ -19,6 +19,8 @@ import {cn} from "@/lib/utils";
 import { Select, SelectContent, SelectTrigger, SelectValue, SelectItem, SelectGroup } from "@/components/ui/select";
 import { Card, CardFooter } from "@/components/ui/card";
 import Image from "next/image";
+import { useProModal } from "@/hooks/use-pro-modal";
+
 
 type Message = {
     role: "user" | "assistant";
@@ -27,6 +29,7 @@ type Message = {
 
 
 const ImagePage = () => {
+    const proModal = useProModal();
     const router = useRouter();
     const [images, setImages] = useState<string[]>([]);
     const form = useForm<z.infer<typeof formSchema>>({
@@ -53,6 +56,9 @@ const ImagePage = () => {
 
         }catch(e: any){
             // TODO: Open Pro Modal
+            if(e?.response?.status === 403){
+                proModal.onOpen();
+            }
             console.log("[onSubmit]",e);
         }finally{
             router.refresh();

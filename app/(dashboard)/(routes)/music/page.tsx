@@ -15,6 +15,8 @@ import { Button } from "@/components/ui/button";
 import {Empty} from "@/components/empty";
 import {Loader} from "@/components/loader";
 
+import { useProModal } from "@/hooks/use-pro-modal";
+
 
 type Message = {
     role: "user" | "assistant";
@@ -23,6 +25,8 @@ type Message = {
 
 
 const MusicPage = () => {
+    const proModal = useProModal();
+
     const router = useRouter();
     const [music, setMusic] = useState<string>();
     const form = useForm<z.infer<typeof formSchema>>({
@@ -48,6 +52,9 @@ const MusicPage = () => {
 
         }catch(e: any){
             // TODO: Open Pro Modal
+            if(e?.response?.status === 403){
+                proModal.onOpen();
+            }
             console.log("[onSubmit]",e);
         }finally{
             router.refresh();

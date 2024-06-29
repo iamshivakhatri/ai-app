@@ -14,11 +14,15 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import {Empty} from "@/components/empty";
 import {Loader} from "@/components/loader";
+import { useProModal } from "@/hooks/use-pro-modal";
+
 
 
 
 
 const VideoPage = () => {
+    const proModal = useProModal();
+
     const router = useRouter();
     const [video, setVideo] = useState<string>();
     const form = useForm<z.infer<typeof formSchema>>({
@@ -43,7 +47,9 @@ const VideoPage = () => {
             form.reset();
 
         }catch(e: any){
-            // TODO: Open Pro Modal
+            if(e?.response?.status === 403){
+                proModal.onOpen();
+            }
             console.log("[onSubmit]",e);
         }finally{
             router.refresh();
