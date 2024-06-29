@@ -2,7 +2,8 @@
 import OpenAI from 'openai';
 import {NextResponse} from "next/server";
 import { auth } from '@clerk/nextjs/server';
-import { json } from 'stream/consumers';
+
+import { increaseApiLimit, checkApiLimit } from '@/lib/api-limit';
 
 type Message = {
   role: "system" | "user",
@@ -41,10 +42,18 @@ export async function POST(req:Request){
         return new NextResponse("Messages are request", {status: 400, statusText: "Bad Request"})
       }
 
+      const freeTrial = await checkApiLimit(req);
+
+      if(!freeTrial){
+        return new NextResponse("API Limit Reached", {status: 403, statusText: "Too Many Requests"})
+      }
+
       const response = await openai.chat.completions.create({
         model: "gpt-3.5-turbo",
         messages: [instructionMessage, ...messages],
       });
+
+      await increaseApiLimit(req);
 
       return new NextResponse(JSON.stringify(response.choices[0].message), {status: 200, statusText: "OK"})
         

@@ -52,3 +52,11 @@ to install prisma
 
 npm i -D prisma
 npm prisma init
+
+
+Install Prisma CLI: npm i @prisma/client
+create a new file prismadb.ts in Lib
+
+To see the table: npx prisma studio
+
+

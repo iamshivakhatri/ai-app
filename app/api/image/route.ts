@@ -3,6 +3,7 @@ import OpenAI from 'openai';
 import {NextResponse} from "next/server";
 import { auth } from '@clerk/nextjs/server';
 import { json } from 'stream/consumers';
+import { increaseApiLimit, checkApiLimit } from '@/lib/api-limit';
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY // This is also the default, can be omitted
@@ -44,6 +45,12 @@ export async function POST(req:Request){
       //   messages: messages,
       // });
 
+      const freeTrial = await checkApiLimit(req);
+
+      if(!freeTrial){
+        return new NextResponse("API Limit Reached", {status: 403, statusText: "Too Many Requests"})
+      }
+
       const response = await openai.images.generate({
         model: "dall-e-3",
         prompt: prompt,
@@ -51,6 +58,7 @@ export async function POST(req:Request){
         size: resolution,
       });
       
+      await increaseApiLimit(req);
 
       return new NextResponse(JSON.stringify(response.data), {status: 200, statusText: "OK"})
         
