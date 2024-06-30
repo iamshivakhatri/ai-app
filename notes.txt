@@ -78,3 +78,10 @@ In order for webhook to work
 3. Then setup by doing this stripe --> listen --forward-to localhost:3000/api/webhook
 and then copy your secret key starting whsec_....
 
+Activate Customer portal link from the website.
+
+Delete the database: npx prisma migrate reset
+after doing it we should do: npx prisma generate and npx prisma db push
+
+
+
