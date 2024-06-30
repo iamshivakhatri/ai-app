@@ -66,3 +66,7 @@ Install zustand to create a model
 install dialog npx shadcn-ui@latest add dialog
 custom hook was created in use-pro-modal
 
+#Connection with stripe
+npm i stripe
+create stripe.ts in lib folder
+
