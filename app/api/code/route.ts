@@ -4,6 +4,7 @@ import {NextResponse} from "next/server";
 import { auth } from '@clerk/nextjs/server';
 
 import { increaseApiLimit, checkApiLimit } from '@/lib/api-limit';
+import { checkSubscription } from '@/lib/subscription';
 
 type Message = {
   role: "system" | "user",
@@ -43,8 +44,9 @@ export async function POST(req:Request){
       }
 
       const freeTrial = await checkApiLimit(req);
+      const isPro = await checkSubscription();
 
-      if(!freeTrial){
+      if(!freeTrial && !isPro){
         return new NextResponse("API Limit Reached", {status: 403, statusText: "Too Many Requests"})
       }
 
@@ -53,7 +55,9 @@ export async function POST(req:Request){
         messages: [instructionMessage, ...messages],
       });
 
-      await increaseApiLimit(req);
+      if (!isPro){
+        await increaseApiLimit(req);
+      }
 
       return new NextResponse(JSON.stringify(response.choices[0].message), {status: 200, statusText: "OK"})
         
