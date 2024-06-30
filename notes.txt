@@ -92,3 +92,7 @@ create new file inside components crisp-chat.tsx
 Clerk supports both client components and server components that's why we can use it in both client and server
 we use useAuth hook in client and just auth in server. 
 
+
+To install the typewritter components.
+npm i typewriter-effect 
+and import it 
