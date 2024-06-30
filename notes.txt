@@ -70,3 +70,11 @@ custom hook was created in use-pro-modal
 npm i stripe
 create stripe.ts in lib folder
 
+in stripe route, we are either creating a subscription or either canceling or upgrade
+
+In order for webhook to work 
+1. Download the stripe cli through brew for mac
+2. stripe login and it authenticates with the browser
+3. Then setup by doing this stripe --> listen --forward-to localhost:3000/api/webhook
+and then copy your secret key starting whsec_....
+
