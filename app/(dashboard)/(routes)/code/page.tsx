@@ -19,6 +19,7 @@ import { BotAvatar } from "@/components/bot-avatar";
 import { UserAvatar } from "@/components/user-avatar";
 import {cn} from "@/lib/utils";
 import { useProModal } from "@/hooks/use-pro-modal";
+import { toast } from "react-hot-toast";
 
 
 type Message = {
@@ -68,6 +69,8 @@ const CodePage = () => {
         }catch(e: any){
             if(e?.response?.status === 403){
                 proModal.onOpen();
+            }else{
+                toast.error("Something went wrong")
             }
             console.log("[onSubmit]",e);
         }finally{

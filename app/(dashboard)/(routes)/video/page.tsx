@@ -15,7 +15,7 @@ import { Button } from "@/components/ui/button";
 import {Empty} from "@/components/empty";
 import {Loader} from "@/components/loader";
 import { useProModal } from "@/hooks/use-pro-modal";
-
+import { toast } from "react-hot-toast";
 
 
 
@@ -49,6 +49,8 @@ const VideoPage = () => {
         }catch(e: any){
             if(e?.response?.status === 403){
                 proModal.onOpen();
+            }else{
+                toast.error("Something went wrong")
             }
             console.log("[onSubmit]",e);
         }finally{

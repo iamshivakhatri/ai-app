@@ -20,6 +20,7 @@ import { Select, SelectContent, SelectTrigger, SelectValue, SelectItem, SelectGr
 import { Card, CardFooter } from "@/components/ui/card";
 import Image from "next/image";
 import { useProModal } from "@/hooks/use-pro-modal";
+import { toast } from "react-hot-toast";
 
 
 type Message = {
@@ -58,6 +59,8 @@ const ImagePage = () => {
             // TODO: Open Pro Modal
             if(e?.response?.status === 403){
                 proModal.onOpen();
+            }else{
+                toast.error("Something went wrong")
             }
             console.log("[onSubmit]",e);
         }finally{

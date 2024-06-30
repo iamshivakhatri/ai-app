@@ -19,6 +19,7 @@ import { BotAvatar } from "@/components/bot-avatar";
 import { UserAvatar } from "@/components/user-avatar";
 import {cn} from "@/lib/utils";
 import { useProModal } from "@/hooks/use-pro-modal";
+import { toast } from "react-hot-toast";
 
 type Message = {
     role: "user" | "assistant";
@@ -27,6 +28,7 @@ type Message = {
 
 
 const ConversationPage = () => {
+    
     const proModal = useProModal();
     const router = useRouter();
     const [messages, setMessages] = useState<Message[]>([]);
@@ -43,7 +45,6 @@ const ConversationPage = () => {
         console.log(values);
 
         try{
-            
             const userMessage:Message = {
                 role: "user",
                 content: values.prompt
@@ -56,7 +57,6 @@ const ConversationPage = () => {
             const response = await axios.post("/api/conversation", {
                 messages: newMessages
             });
-            console.log("This is not printing2", newMessages);
             setMessages((current) => [...current, userMessage, response.data]);
 
 
@@ -66,6 +66,8 @@ const ConversationPage = () => {
             // TODO: Open Pro Modal
             if(e?.response?.status === 403){
                 proModal.onOpen();
+            }else{
+                toast.error("Something went wrong")
             }
             console.log("[onSubmit]",e);
         }finally{
