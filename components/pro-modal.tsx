@@ -10,7 +10,7 @@ import { cn } from "@/lib/utils";
 import { Button } from "./ui/button";
 import axios from "axios";
 import { useState } from "react";
-
+import { toast } from "react-hot-toast";
 
 const tools = [
     {
@@ -60,6 +60,7 @@ export const ProModal = () => {
             const response = await axios.get('/api/stripe');
             window.location.href = response.data.url;
         }catch(error){
+            toast.error("Something went wrong")
             console.log("[onSubscribe] error", error)
 
         }finally{

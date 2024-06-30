@@ -85,3 +85,5 @@ after doing it we should do: npx prisma generate and npx prisma db push
 
 
 
+Add crisp 
+npm i crisp-sdk-web
