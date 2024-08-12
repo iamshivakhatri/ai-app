@@ -4,31 +4,31 @@ import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 
 const testimonials = [
     {
-        name: "Abhishek Yadav",
+        name: "Selena Gomez",
         role: "Software Engineer",
         content: "I have been using this product for a while now and I am really impressed with the quality of the product. It has helped me a lot in my day to day work."
     },
     {
-        name: "Dharma Thakur",
+        name: "Taylor Swift",
         role: "Software Engineer",
         content: "I have been using this product for a while now and I am really impressed with the quality of the product. It has helped me a lot in my day to day work."
     },
     {
-        name: "Selisha Thapa",
+        name: "Ariana Grande",
         role: "Software Engineer",
         content: "I have been using this product for a while now and I am really impressed with the quality of the product. It has helped me a lot in my day to day work."
     },{
-        name: "Abhishek Yadav",
+        name: "Justin Bieber",
         role: "Software Engineer",
         content: "I have been using this product for a while now and I am really impressed with the quality of the product. It has helped me a lot in my day to day work."
     },
     {
-        name: "Dharma Thakur",
+        name: "Ed Sheeran",
         role: "Software Engineer",
         content: "I have been using this product for a while now and I am really impressed with the quality of the product. It has helped me a lot in my day to day work."
     },
     {
-        name: "Selisha Thapa",
+        name: "Shawn Mendes",
         role: "Software Engineer",
         content: "I have been using this product for a while now and I am really impressed with the quality of the product. It has helped me a lot in my day to day work."
     },

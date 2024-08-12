@@ -75,7 +75,7 @@ in stripe route, we are either creating a subscription or either canceling or up
 In order for webhook to work 
 1. Download the stripe cli through brew for mac
 2. stripe login and it authenticates with the browser
-3. Then setup by doing this stripe --> listen --forward-to localhost:3000/api/webhook
+3. Then setup by doing this stripe --> stripe listen --forward-to localhost:3000/api/webhook
 and then copy your secret key starting whsec_....
 
 Activate Customer portal link from the website.
@@ -96,3 +96,6 @@ we use useAuth hook in client and just auth in server.
 To install the typewritter components.
 npm i typewriter-effect 
 and import it 
+
+also start this for stripe: stripe listen --forward-to localhost:3000/api/webhook
+

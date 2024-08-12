@@ -5,6 +5,8 @@ const DAY_IN_MS = 86_400_000;
 
 export const checkSubscription = async () => {
     const {userId} = auth();
+    console.log("This is the userId", userId);
+    
     if (!userId) return false; 
 
     const userSubscription = await prismadb.userSubscription.findUnique({

@@ -5,6 +5,7 @@ import { SettingsIcon } from "lucide-react";
 
 const SettingsPage = async() => {
     const isPro = await checkSubscription();
+    console.log("Thisis thvalue in ispro", isPro)
     return ( 
         <div>
             <Heading 
