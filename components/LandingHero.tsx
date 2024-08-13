@@ -24,7 +24,7 @@ export const LandingHero = ()=>{
            </div>
         </div>
         <div className="text-sm md:text-xl font-light text-zinc-400">
-            Generate Content 10x Faster with Genius AI
+            Generate Content 10x Faster with your AI
         </div>
         <div>
             <Link href={isSignedIn? "/dashboard": "/sign-up"}> 
